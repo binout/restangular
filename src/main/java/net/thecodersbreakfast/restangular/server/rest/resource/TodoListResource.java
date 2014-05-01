@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Olivier Croisier
+ * Copyright 2014 Benoit Prioux
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,26 +18,27 @@ package net.thecodersbreakfast.restangular.server.rest.resource;
 
 import net.thecodersbreakfast.restangular.server.dao.TodoRepository;
 import net.thecodersbreakfast.restangular.server.model.Todo;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.List;
 
-@Path("/rest/todos")
+@RestController
+@EnableAutoConfiguration
+@RequestMapping(value = "/rest/todos")
 public class TodoListResource {
 
     private TodoRepository repository = TodoRepository.getInstance();
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
     public List<Todo> list() {
         return repository.list();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Todo todo) throws IOException {
+    @RequestMapping(method = RequestMethod.POST)
+    public void create(@RequestBody Todo todo) throws IOException {
         repository.create(todo);
     }
 
