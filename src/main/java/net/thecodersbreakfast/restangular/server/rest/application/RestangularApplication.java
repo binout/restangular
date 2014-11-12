@@ -16,24 +16,32 @@
 
 package net.thecodersbreakfast.restangular.server.rest.application;
 
-import net.thecodersbreakfast.restangular.server.rest.resource.StaticResource;
+import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
 import net.thecodersbreakfast.restangular.server.rest.resource.TodoListResource;
 import net.thecodersbreakfast.restangular.server.rest.resource.TodoResource;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
-import java.util.HashSet;
-import java.util.Set;
+public class RestangularApplication extends Application<RestangularConfiguration> {
 
-@ApplicationPath("/")
-public class RestangularApplication extends Application {
+    public static void main(String[] args) throws Exception {
+        new RestangularApplication().run(args);
+    }
 
     @Override
-    public Set<Class<?>> getClasses() {
-        Set<Class<?>> s = new HashSet<>();
-        s.add(TodoListResource.class);
-        s.add(TodoResource.class);
-        s.add(StaticResource.class);
-        return s;
+    public String getName() {
+        return "Restangular";
+    }
+
+    @Override
+    public void initialize(Bootstrap<RestangularConfiguration> bootstrap) {
+        bootstrap.addBundle(new AssetsBundle("/static", "/web"));
+    }
+
+    @Override
+    public void run(RestangularConfiguration restangularConfiguration, Environment environment) throws Exception {
+        environment.jersey().register(new TodoResource());
+        environment.jersey().register(new TodoListResource());
     }
 }

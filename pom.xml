@@ -22,7 +22,7 @@
     <artifactId>restangular</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>Angular.js + Jersey integration</name>
+    <name>Angular.js + DropWizard integration</name>
 
     <!-- ================================================================================ -->
     <!-- Common properties -->
@@ -32,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.javaVersion>1.7</project.build.javaVersion>
         <!-- Dependencies -->
-        <version.lib.jersey>1.17.1</version.lib.jersey>
+        <version.lib.dropwizard>0.7.0</version.lib.dropwizard>
     </properties>
 
     <!-- ================================================================================ -->
@@ -40,19 +40,14 @@
     <!-- ================================================================================ -->
     <dependencies>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-bundle</artifactId>
-            <version>${version.lib.jersey}</version>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${version.lib.dropwizard}</version>
         </dependency>
         <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-json</artifactId>
-            <version>${version.lib.jersey}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>12.0</version>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-assets</artifactId>
+            <version>${version.lib.dropwizard}</version>
         </dependency>
     </dependencies>
 
@@ -84,7 +79,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>net.thecodersbreakfast.restangular.server.rest.application.RestangularComponent</mainClass>
+                                    <mainClass>net.thecodersbreakfast.restangular.server.rest.application.RestangularApplication</mainClass>
                                 </transformer>
                             </transformers>
                             <finalName>restangular-${project.version}</finalName>
